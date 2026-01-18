@@ -1,6 +1,6 @@
-ARG CADDY_VERSION=2.10.2
-ARG CACHE_HANDLER_VERSION=v0.16.0
-ARG WEBDAV_VERSION=7a5c90d8bf90ca97fc5ac11ff764533de5e05bd7
+ARG CADDY_VERSION=2.8.4
+ARG CACHE_HANDLER_VERSION=v0.15.0
+ARG WEBDAV_VERSION=bfcd3903f21e5cdaac29ed47777356a8a18deaf5
 
 FROM caddy:${CADDY_VERSION}-builder AS builder
 
@@ -14,3 +14,4 @@ RUN xcaddy build \
 FROM caddy:${CADDY_VERSION}
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+
