@@ -15,8 +15,7 @@ concurrency:
 
 env:
   REGISTRY: ghcr.io
-  # Image name should be owner/caddy
-  IMAGE_NAME: ${{ github.repository_owner }}/caddy
+  IMAGE_NAME: ${{ github.repository }}/caddy
 
 jobs:
   build-and-push:
