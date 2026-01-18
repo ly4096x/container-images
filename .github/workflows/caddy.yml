@@ -1,21 +1,13 @@
 name: Build Caddy with Modules
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # Daily at midnight
   workflow_dispatch:
   push:
     branches:
       - caddy
-    paths:
-      - 'Dockerfile'
-      - '.github/workflows/caddy.yml'
   pull_request:
     branches:
       - caddy
-    paths:
-      - 'Dockerfile'
-      - '.github/workflows/caddy.yml'
 
 env:
   REGISTRY: ghcr.io
