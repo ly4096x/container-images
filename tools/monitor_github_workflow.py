@@ -18,10 +18,15 @@ TOOL_DEFINITION = {
                 "type": "string",
                 "description": "The name of the GitHub repository"
             },
+            "poll_every_x_seconds": {
+                "type": "number",
+                "description": "Poll data every X seconds (default: 30)",
+                "default": 30
+            },
             "timeout_minutes": {
                 "type": "number",
-                "description": "Timeout in minutes (default: 20)",
-                "default": 20
+                "description": "Total timeout in minutes (default: 30)",
+                "default": 30
             }
         },
         "required": ["owner", "repo"]
@@ -46,7 +51,8 @@ def get_latest_run(owner, repo):
 def handler(arguments):
     owner = arguments.get("owner")
     repo = arguments.get("repo")
-    timeout_minutes = arguments.get("timeout_minutes", 20)
+    poll_every_x_seconds = arguments.get("poll_every_x_seconds", 30)
+    timeout_minutes = arguments.get("timeout_minutes", 30)
     
     if not owner or not repo:
         raise ValueError("Missing 'owner' or 'repo' arguments")
@@ -61,8 +67,8 @@ def handler(arguments):
     while time.time() < end_time:
         run = get_latest_run(owner, repo)
         if not run:
-            logging.warning("No runs found or error fetching data. Retrying in 30s...")
-            time.sleep(30)
+            logging.warning(f"No runs found or error fetching data. Retrying in {poll_every_x_seconds}s...")
+            time.sleep(poll_every_x_seconds)
             continue
 
         status = run.get("status")
@@ -93,7 +99,7 @@ def handler(arguments):
                 ]
             }
         
-        time.sleep(30)
+        time.sleep(poll_every_x_seconds)
 
     return {
         "content": [
