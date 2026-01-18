@@ -23,14 +23,14 @@ jobs:
       - name: Check for updates
         id: check
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT_WITH_PR_PERMISSION }}
         run: python .github/scripts/check_updates.py
 
       - name: Create Pull Request
         if: steps.check.outputs.updated == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT_WITH_PR_PERMISSION }}
           commit-message: "chore(deps): update caddy dependencies"
           title: "chore(deps): update caddy dependencies"
           body: |
