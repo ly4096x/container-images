@@ -9,6 +9,10 @@ on:
     branches:
       - caddy
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   REGISTRY: ghcr.io
   # Image name should be owner/caddy
