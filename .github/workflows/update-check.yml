@@ -22,6 +22,8 @@ jobs:
 
       - name: Check for updates
         id: check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python .github/scripts/check_updates.py
 
       - name: Create Pull Request
