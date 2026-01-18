@@ -73,16 +73,13 @@ def update_dockerfile(file_path):
         if 'GITHUB_OUTPUT' in os.environ:
             with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
                 update_str = ', '.join(updates)
-                f.write(f'updates={update_str}
-')
-                f.write('updated=true
-')
+                f.write(f'updates={update_str}\n')
+                f.write('updated=true\n')
     else:
         print('No updates found.')
         if 'GITHUB_OUTPUT' in os.environ:
             with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-                f.write('updated=false
-')
+                f.write('updated=false\n')
 
 if __name__ == '__main__':
     update_dockerfile('Dockerfile')
