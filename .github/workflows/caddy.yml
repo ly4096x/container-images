@@ -55,7 +55,7 @@ jobs:
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=schedule,pattern={{date 'YYYYMMDD'}}
-            type=date,pattern=YYYYMMDD,enable={{is_default_branch}}
+            type=raw,value={{date 'YYYYMMDD'}},enable={{is_default_branch}}
             type=sha,enable=false
 
       # Test build first (linux/amd64 only) to verify modules
