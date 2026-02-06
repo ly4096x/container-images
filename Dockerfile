@@ -11,7 +11,15 @@ RUN xcaddy build \
     --with github.com/caddyserver/cache-handler@${CACHE_HANDLER_VERSION} \
     --with github.com/mholt/caddy-webdav@${WEBDAV_VERSION}
 
+
 FROM caddy:${CADDY_VERSION}
 
-COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+VOLUME /data /config
 
+COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+COPY docker-entrypoint.sh /
+
+RUN apk add --no-cache su-exec bash && \
+        chmod +x /docker-entrypoint.sh
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
