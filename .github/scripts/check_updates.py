@@ -51,6 +51,7 @@ def update_dockerfile(file_path):
         latest_caddy_tag = get_latest_release("caddyserver", "caddy")
         if latest_caddy_tag:
             latest_caddy_clean = latest_caddy_tag.lstrip("v")
+            print(f'Found latest caddy version: "{latest_caddy_clean}"')
             if latest_caddy_clean != current_caddy:
                 print(f"Update Caddy: {current_caddy} -> {latest_caddy_clean}")
                 content = re.sub(r"ARG CADDY_VERSION=.*", f"ARG CADDY_VERSION={latest_caddy_clean}", content)
@@ -61,6 +62,7 @@ def update_dockerfile(file_path):
     if match:
         current_cache = match.group(1).strip()
         latest_cache = get_latest_release("caddyserver", "cache-handler")
+        print(f'Found latest Cache version: "{latest_cache}"')
         if latest_cache and latest_cache != current_cache:
             print(f"Update Cache Handler: {current_cache} -> {latest_cache}")
             content = re.sub(r"ARG CACHE_HANDLER_VERSION=.*", f"ARG CACHE_HANDLER_VERSION={latest_cache}", content)
@@ -71,6 +73,7 @@ def update_dockerfile(file_path):
     if match:
         current_webdav = match.group(1).strip()
         latest_webdav = get_latest_commit("mholt", "caddy-webdav")
+        print(f'Found latest WebDAV version: "{latest_webdav}"')
         if latest_webdav and latest_webdav != current_webdav:
             print(f"Update WebDAV: {current_webdav} -> {latest_webdav}")
             content = re.sub(r"ARG WEBDAV_VERSION=.*", f"ARG WEBDAV_VERSION={latest_webdav}", content)
